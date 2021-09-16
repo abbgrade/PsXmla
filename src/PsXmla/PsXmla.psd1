@@ -1,7 +1,8 @@
 @{
     RootModule = 'PsXmla.dll'
-    ModuleVersion = '0.1.0'
+    ModuleVersion = '0.2.0'
     GUID = '88c14d97-eb95-428b-bbd0-99737f1cf5fd'
+    DefaultCommandPrefix = 'Xmla'
     Author = 'Steffen Kampmann'
     Copyright = '(c) 2021 Steffen Kampmann. Alle Rechte vorbehalten.'
     Description = 'PsXmla connects XMLA and PowerShell. It gives you PowerShell Cmdlets with the power of Microsoft.AnalysisServices.Tabular'
