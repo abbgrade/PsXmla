@@ -34,6 +34,12 @@ TODO
 | &#11185; Retry support       | Specify the number of retry attempts      | &#9745; |
 | &#11185; Power BI exceptions | Parse and handle exceptions from Power BI | &#9744; |
 
+## Changelog
+
+### 0.1.0
+
+- Implementation of `Connect-XmlaServer`, `Disconnect-XmlaServer` and `Invoke-XmlaCommand`.
+
 ### Build
 
 The build scripts require InvokeBuild. If it is not installed, install it with the command `Install-Module InvokeBuild -Scope CurrentUser`.
