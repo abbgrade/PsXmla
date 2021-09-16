@@ -1,6 +1,6 @@
 @{
     RootModule = 'PsXmla.dll'
-    ModuleVersion = '0.1'
+    ModuleVersion = '0.1.0'
     GUID = '88c14d97-eb95-428b-bbd0-99737f1cf5fd'
     PowerShellVersion = '7.0'
     DefaultCommandPrefix = 'Xmla'
