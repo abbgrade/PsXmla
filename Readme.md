@@ -40,11 +40,6 @@ TODO
 
 - Implementation of `Connect-XmlaServer`, `Disconnect-XmlaServer` and `Invoke-XmlaCommand`.
 
-### Build
-
-The build scripts require InvokeBuild. If it is not installed, install it with the command `Install-Module InvokeBuild -Scope CurrentUser`.
-
-You can build the module using the VS Code build task or with the command `Invoke-Build Build`.
 
 ## Development
 
@@ -53,3 +48,9 @@ You can build the module using the VS Code build task or with the command `Invok
 - Build automation is based on [InvokeBuild](https://github.com/nightroman/Invoke-Build)
 - Test automation is based on [Pester](https://pester.dev)
 - Commands are named based on [Approved Verbs for PowerShell Commands](https://docs.microsoft.com/de-de/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands)
+
+### Build
+
+The build scripts require InvokeBuild. If it is not installed, install it with the command `Install-Module InvokeBuild -Scope CurrentUser`.
+
+You can build the module using the VS Code build task or with the command `Invoke-Build Build`.
