@@ -88,7 +88,7 @@ namespace PsXmla
         }
 
         [Parameter()]
-        public NetworkCredential Credential { get; set; }
+        public NetworkCredential Credential { get; set; } = new NetworkCredential();
 
         string Protocol { get; set; }
 
