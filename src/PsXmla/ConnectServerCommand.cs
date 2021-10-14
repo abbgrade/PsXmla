@@ -77,10 +77,14 @@ namespace PsXmla
         public string Username { get; set; }
 
         [Parameter()]
+        [Alias("ClientSecret")]
         public SecureString Password { get; set; }
 
         [Parameter()]
         public PSCredential Credential { get; set; }
+
+        [Parameter()]
+        public string ClientId { get; set; }
 
         string Protocol { get; set; }
 
@@ -110,10 +114,19 @@ namespace PsXmla
             }
 
             SetProtocolByDataSource();
+            SetUsernameByClientId();
             SetCredentialByUsernamePassword();
             AddAuthenticationToConnectionString();
             ConnectByConnectionString();
             WriteObject(Connection);
+        }
+
+        private void SetUsernameByClientId()
+        {
+            if (!string.IsNullOrEmpty(ClientId))
+            {
+                Username = $"app:{ClientId}";
+            }
         }
 
         private void SetCredentialByUsernamePassword()
@@ -133,7 +146,7 @@ namespace PsXmla
         {
             if (Credential != null && !string.IsNullOrEmpty(Credential.UserName))
             {
-                ConnectionString += $";Username={Credential.UserName}";
+                ConnectionString += $";User ID={Credential.UserName}";
 
                 if (Credential.Password.Length > 0)
                 {
