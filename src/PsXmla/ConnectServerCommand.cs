@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Management.Automation;
-using System.Net;
 using System.Security;
 using System.Text.RegularExpressions;
 using Microsoft.AnalysisServices.Tabular;
@@ -75,20 +74,13 @@ namespace PsXmla
         public SwitchParameter InteractiveAuthentication;
 
         [Parameter()]
-        public string Username {
-            get { return Credential.UserName; } 
-            set { Credential.UserName = value; } 
-        }
+        public string Username { get; set; }
 
         [Parameter()]
-        public SecureString Password
-        {
-            get { return Credential.SecurePassword; }
-            set { Credential.SecurePassword = value; }
-        }
+        public SecureString Password { get; set; }
 
         [Parameter()]
-        public NetworkCredential Credential { get; set; } = new NetworkCredential();
+        public PSCredential Credential { get; set; }
 
         string Protocol { get; set; }
 
@@ -118,9 +110,18 @@ namespace PsXmla
             }
 
             SetProtocolByDataSource();
+            SetCredentialByUsernamePassword();
             AddAuthenticationToConnectionString();
             ConnectByConnectionString();
             WriteObject(Connection);
+        }
+
+        private void SetCredentialByUsernamePassword()
+        {
+            if (!string.IsNullOrEmpty(Username))
+            {
+                Credential = new PSCredential(userName: Username, password: Password);
+            }
         }
 
         private void ConnectByConnectionString()
@@ -130,13 +131,13 @@ namespace PsXmla
 
         private void AddAuthenticationToConnectionString()
         {
-            if (!string.IsNullOrEmpty(Username))
+            if (Credential != null && !string.IsNullOrEmpty(Credential.UserName))
             {
-                ConnectionString += $";Username={Username}";
+                ConnectionString += $";Username={Credential.UserName}";
 
-                if (Password.Length > 0)
+                if (Credential.Password.Length > 0)
                 {
-                    ConnectionString += $";Password={new NetworkCredential(string.Empty, Password).Password}";
+                    ConnectionString += $";Password={Credential.GetNetworkCredential().Password}";
                     WriteVerbose("Authenticate via Username and Password");
                 } else
                 {
