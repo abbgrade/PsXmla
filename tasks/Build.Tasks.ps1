@@ -1,10 +1,9 @@
 requires Configuration
 
-[System.IO.FileInfo] $global:Manifest = "$PSScriptRoot/../src/PsXmla/bin/$Configuration/net5.0/publish/PsXmla.psd1"
-
+[System.IO.FileInfo] $global:Manifest = "$PSScriptRoot/../src/PsXmla/bin/$Configuration/netcoreapp3.0/publish/PsXmla.psd1"
 
 # Synopsis: Build project.
-task Build {
+task Build -Jobs Clean, {
 	exec { dotnet publish ./src/PsXmla -c $Configuration }
 }
 
