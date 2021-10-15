@@ -1,6 +1,6 @@
 requires Configuration
 
-[System.IO.FileInfo] $global:Manifest = "$PSScriptRoot/../src/PsXmla/bin/$Configuration/netcoreapp3.0/publish/PsXmla.psd1"
+[System.IO.FileInfo] $global:Manifest = "$PSScriptRoot/../src/PsXmla/bin/$Configuration/netcoreapp3.1/publish/PsXmla.psd1"
 
 # Synopsis: Build project.
 task Build -Jobs Clean, {

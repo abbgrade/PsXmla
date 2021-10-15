@@ -3,6 +3,7 @@ using Microsoft.AnalysisServices.Tabular;
 using Newtonsoft.Json;
 using Polly;
 using System;
+using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace PsXmla
@@ -75,6 +76,8 @@ namespace PsXmla
                     throw ex;
             }
 
+            var exceptions = new List<Exception>();
+
             if (results != null)
             {
                 foreach (XmlaResult result in results)
@@ -92,8 +95,7 @@ namespace PsXmla
                                     dynamic dynamicObject = JsonConvert.DeserializeObject(message.Description.Split("Technical Details:")[0]);
                                     if (dynamicObject != null)
                                     {
-                                        WriteWarning($"{message.Source}: {message.Description}");
-                                        WriteObject(dynamicObject);
+                                        WriteVerbose($"{message.Source}: {message.Description}");
                                         var error = dynamicObject?.error;
                                         if (error != null)
                                         {
@@ -102,20 +104,30 @@ namespace PsXmla
                                             switch (code.Value)
                                             {
                                                 case "DMTS_MonikerWithUnboundDataSources":
-                                                    WriteWarning("Datasource not bound to gateway");
+                                                    exceptions.Add(new Exception("Datasource not bound to gateway"));
                                                     break;
 
                                                 case "DM_GWPipeline_Gateway_DataSourceAccessError":
-                                                    WriteWarning("Database not available or accessable");
+                                                    exceptions.Add(new Exception("Database not available or accessable"));
                                                     break;
+
+                                                case "DM_GWPipeline_Gateway_InvalidObjectNameException":
+                                                    exceptions.Add(new Exception("Invalid object name in datasource"));
+                                                    break;
+
+                                                case "DM_GWPipeline_Gateway_CanceledError":
+                                                    exceptions.Add(new Exception("Operation canceled"));
+                                                    break;
+
                                                 default:
-                                                    throw new NotImplementedException(code.Value);
+                                                    exceptions.Add(new Exception(code.Value));
+                                                    break;
                                             }
                                             break;
                                         }
                                         else
                                         {
-                                            WriteWarning($"{message.Source}: {message.Description}");
+                                            exceptions.Add(new Exception($"{message.Source}: {message.Description}"));
                                         }
                                     }
                                 }
@@ -132,7 +144,11 @@ namespace PsXmla
             }
 
             if (!success)
-                WriteError(new ErrorRecord(new System.Exception("Operation failed."), "Error", ErrorCategory.OperationStopped, null));
+                WriteError(new ErrorRecord(
+                    exception: new AggregateException("Operation failed.", exceptions), 
+                    errorId: "Error", 
+                    errorCategory: ErrorCategory.OperationStopped, 
+                    targetObject: Command));
             else
                 WriteVerbose("Operation succeeded.");
         }
