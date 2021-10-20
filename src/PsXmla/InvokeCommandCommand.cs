@@ -31,7 +31,7 @@ namespace PsXmla
         public int? MaxRetryAttempts { get; set; }
 
         [Parameter()]
-        public bool IgnoreResponseFormatException { get; set; }
+        public SwitchParameter IgnoreResponseFormatException { get; set; }
 
         protected override void ProcessRecord()
         {
@@ -72,7 +72,7 @@ namespace PsXmla
             catch (ResponseFormatException ex)
             {
                 WriteWarning(ex.InnerException.Message);
-                if (IgnoreResponseFormatException == false)
+                if (!IgnoreResponseFormatException.IsPresent)
                     throw ex;
             }
 
