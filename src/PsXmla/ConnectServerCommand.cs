@@ -146,11 +146,11 @@ namespace PsXmla
         {
             if (Credential != null && !string.IsNullOrEmpty(Credential.UserName))
             {
-                ConnectionString += $";User ID={Credential.UserName}";
+                ConnectionString += $";User ID=\"{Credential.UserName}\"";
 
                 if (Credential.Password.Length > 0)
                 {
-                    ConnectionString += $";Password={Credential.GetNetworkCredential().Password}";
+                    ConnectionString += $";Password=\"{Credential.GetNetworkCredential().Password}\"";
                     WriteVerbose("Authenticate via Username and Password");
                 } else
                 {
@@ -207,10 +207,10 @@ namespace PsXmla
 
         private void SetConnectionStringByServerParameters()
         {
-            ConnectionString = $"DataSource={DataSource}";
+            ConnectionString = $"DataSource=\"{DataSource}\"";
             if (!string.IsNullOrEmpty(InitialCatalog))
             {
-                ConnectionString += $";initial catalog={InitialCatalog}";
+                ConnectionString += $";initial catalog=\"{InitialCatalog}\"";
                 WriteVerbose("Connect by DataSource and InitialCatalog.");
             }
             else
@@ -222,22 +222,23 @@ namespace PsXmla
 
         private void SetConnectionStringByPowerBiParameters()
         {
-            ConnectionString = $"DataSource={DataSource}";
+            ConnectionString = $"DataSource=\"{DataSource}\"";
             if (!string.IsNullOrEmpty(PowerBiDataset))
             {
-                ConnectionString += $";initial catalog={PowerBiDataset}";
-                WriteVerbose("Connect by PowerBiWorkspace and PowerBiDataset.");
+                ConnectionString += $";initial catalog=\"{PowerBiDataset}\"";
+                WriteVerbose($"Connect by PowerBiWorkspace {PowerBiWorkspace} and PowerBiDataset {PowerBiDataset}.");
             }
             else
             {
 
-                WriteVerbose("Connect by PowerBiWorkspace.");
+                WriteVerbose($"Connect by PowerBiWorkspace {PowerBiWorkspace}.");
             }
         }
 
         private void SetDataSourceForPowerBiParameters()
         {
             DataSource = $"powerbi://api.powerbi.com/v1.0/{PowerBiTenant}/{PowerBiWorkspace}";
+            WriteVerbose($"Set datasource to {DataSource}");
         }
     }
 }
