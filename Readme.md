@@ -29,6 +29,7 @@ TODO
 | Command                      | Description                               | Status  |
 | ---------------------------- | ----------------------------------------- | ------- |
 | Connect-Instance             | Create a new database connection.         | &#9745; |
+| &#11185; Polly Retries       | Implement retry policies on Polly         | &#9744; |
 | Disconnect-Instance          | Close connection                          | &#9745; |
 | Invoke-Command               | Execute SQLCMD scripts                    | &#9744; |
 | &#11185; Retry support       | Specify the number of retry attempts      | &#9745; |
