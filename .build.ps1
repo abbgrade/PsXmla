@@ -10,7 +10,9 @@ param(
 	[string] $NuGetApiKey = $env:nuget_apikey,
 
 	# Version suffix to prereleases
-	[int] $BuildNumber
+	[int] $BuildNumber,
+
+	[switch] $ForceDocInit
 )
 
 $ModuleName = 'PsXmla'
