@@ -1,5 +1,3 @@
-bin
-obj
-coverage.xml
-testResults.xml
-*/*/.vs
+publish
+*/*/bin
+*/*/obj

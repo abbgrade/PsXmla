@@ -37,17 +37,7 @@ TODO
 
 ## Changelog
 
-### 0.1.0
-
-- Implementation of `Connect-XmlaServer`, `Disconnect-XmlaServer` and `Invoke-XmlaCommand`.
-
-### 0.3.0
-
-- Added connection parameters for Power BI
-- Added connection parameters for server and database
-- Added connection parameters for client and secret
-- Added connection parameters for username and password
-- Added connection parameters for access token.
+See the [changelog](./CHANGELOG.md) file.
 
 ## Development
 
