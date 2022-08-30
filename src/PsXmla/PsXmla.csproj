@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AnalysisServices.NetCore.retail.amd64" Version="19.46.0" />
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.46.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.46.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Polly" Version="7.2.3" />
     <PackageReference Include="System.Management.Automation" Version="7.2.5" />
